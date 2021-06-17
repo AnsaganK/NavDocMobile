@@ -79,16 +79,28 @@ class _NotesNewPageState extends State<NotesNewPage> {
                       "Вы уверены что хотите выйти?",
                       textAlign: TextAlign.center,
                     ),
+                    SizedBox(
+                      height: 15,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         RaisedButton(
+                          color: baseColor,
                           onPressed: () {},
-                          child: Text("Да"),
+                          child: Text(
+                            "Да",
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                         RaisedButton(
-                          onPressed: () {},
-                          child: Text("Нет"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "Нет",
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ],
                     )
