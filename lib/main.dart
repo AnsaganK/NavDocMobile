@@ -227,7 +227,30 @@ class _MyHomePageState extends State<MyHomePage> {
                                   SnackBar(
                                       content: Container(
                                         child: const Text(
-                                          'Токена нет',
+                                          'Не удается получить идентификатор устройства, если проблема сохраняется то перезапустите приложение',
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                      backgroundColor: Colors.red[500],
+                                      duration: const Duration(seconds: 2),
+                                      elevation: 10,
+                                      margin: EdgeInsets.only(
+                                          bottom: 20, left: 30, right: 30),
+                                      behavior: SnackBarBehavior.floating));
+                            } else {
+                              var user = await login(_usernameController.text,
+                                  _passwordController.text, data_token);
+                              if (user != null) {
+                                SharedPreferences prefs =
+                                    await SharedPreferences.getInstance();
+                                await prefs.setInt('user_id', user["user_id"]);
+                                Navigator.pushNamed(context, '/notes_page');
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Container(
+                                        child: const Text(
+                                          'Невалидные данные',
                                           textAlign: TextAlign.center,
                                         ),
                                       ),
@@ -236,31 +259,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                       elevation: 10,
                                       margin: EdgeInsets.only(
                                           bottom: 20, left: 30, right: 30),
-                                      behavior: SnackBarBehavior.floating));
-                            }
-                            var user = await login(_usernameController.text,
-                                _passwordController.text, data_token);
-                            if (user != null) {
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-                              await prefs.setInt('user_id', user["user_id"]);
-                              Navigator.pushNamed(context, '/notes_page');
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content: Container(
-                                      child: const Text(
-                                        'Невалидные данные',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    backgroundColor: Colors.red[500],
-                                    duration: const Duration(seconds: 1),
-                                    elevation: 10,
-                                    margin: EdgeInsets.only(
-                                        bottom: 20, left: 30, right: 30),
-                                    behavior: SnackBarBehavior.floating),
-                              );
+                                      behavior: SnackBarBehavior.floating),
+                                );
+                              }
                             }
                           },
                           color: baseColor,
@@ -319,6 +320,7 @@ Future login(String username, String password, String data_token) async {
     "content-type": "application/json"
   });
   print(res.statusCode);
+  print(res.body);
   if (res.statusCode == 200) return json.decode(res.body);
 
   return null;

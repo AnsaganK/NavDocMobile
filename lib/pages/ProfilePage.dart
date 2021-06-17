@@ -235,7 +235,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   width: 200,
                                   padding: const EdgeInsets.only(left: 20),
                                   child: Text(
-                                    "${snapshot.data['profile']['department']['name']}",
+                                    "${snapshot.data['profile']['department'] != null ? snapshot.data['profile']['department']['name'] : null}",
                                     textAlign: TextAlign.end,
                                   ),
                                 ),
