@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nd/constants.dart';
 import 'package:nd/main.dart';
 import 'package:nd/models/Notes.dart';
@@ -66,49 +67,7 @@ class _NotesNewPageState extends State<NotesNewPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) => Dialog(
-            child: Container(
-                height: 120,
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    Text(
-                      "Вы уверены что хотите выйти?",
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RaisedButton(
-                          color: baseColor,
-                          onPressed: () {},
-                          child: Text(
-                            "Да",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        RaisedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                            "Нет",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                )),
-          ),
-        );
-      },
+      onWillPop: exitDialog,
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -528,6 +487,53 @@ class _NotesNewPageState extends State<NotesNewPage> {
             );
           },
         ),
+      ),
+    );
+  }
+
+  Future<bool> exitDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => Dialog(
+        child: Container(
+            height: 120,
+            padding: EdgeInsets.all(20),
+            child: Column(
+              children: [
+                Text(
+                  "Вы уверены что хотите выйти?",
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    RaisedButton(
+                      color: baseColor,
+                      onPressed: () {
+                        SystemChannels.platform
+                            .invokeMethod('SystemNavigator.pop');
+                      },
+                      child: Text(
+                        "Да",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    RaisedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "Нет",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            )),
       ),
     );
   }

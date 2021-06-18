@@ -34,6 +34,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
       new GlobalKey<RefreshIndicatorState>();
   Future<NoteDetail> note;
   bool _isLoading = true;
+  bool preloader = false;
   final List<Tab> tabs = <Tab>[
     Tab(
       icon: Icon(Icons.info),
@@ -214,12 +215,14 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                               Navigator.pop(context);
                                               Navigator.pop(context);
                                               Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          NotesNewPage(
-                                                            days: 7,
-                                                          )));
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      NotesNewPage(
+                                                    days: 7,
+                                                  ),
+                                                ),
+                                              );
                                             } else {
                                               Navigator.pop(context);
                                               showDialog(
