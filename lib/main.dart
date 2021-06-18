@@ -182,8 +182,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           ListView(
             children: [
+              //SizedBox(
+              //  height: 50,
+              //),
               SizedBox(
                 height: 150,
+                //child: Image.asset("assets/img/new_logo.png"),
               ),
               Form(
                 key: _formKey,
