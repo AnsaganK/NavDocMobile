@@ -466,6 +466,39 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
+                                                "Бухгалтер",
+                                                style: TextStyle(
+                                                    color: Colors.black54),
+                                              ),
+                                              Container(
+                                                width: 200,
+                                                child: snapshot.data.buh != null
+                                                    ? Text(
+                                                        "${snapshot.data.buh["first_name"]} ${snapshot.data.buh["last_name"]}\n(подписано)",
+                                                        textAlign:
+                                                            TextAlign.right,
+                                                        style: TextStyle(
+                                                            color:
+                                                                successColor),
+                                                      )
+                                                    : Text(
+                                                        "В ожидании",
+                                                        textAlign:
+                                                            TextAlign.right,
+                                                        style: TextStyle(
+                                                            color: Colors.grey),
+                                                      ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 5),
+                                          Divider(),
+                                          SizedBox(height: 5),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
                                                 "Файлы",
                                                 style: TextStyle(
                                                     color: Colors.black54),
