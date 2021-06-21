@@ -21,6 +21,7 @@ NoteDetail _$NoteDetailFromJson(Map<String, dynamic> json) {
     json['user'] as Map<String, dynamic>,
     json['users'] as List<dynamic>,
     json['files'] as List<dynamic>,
+    json['buh'] as Map<String, dynamic>,
   );
 }
 
@@ -39,4 +40,5 @@ Map<String, dynamic> _$NoteDetailToJson(NoteDetail instance) =>
       'user': instance.user,
       'users': instance.users,
       'files': instance.files,
+      'buh': instance.buh,
     };

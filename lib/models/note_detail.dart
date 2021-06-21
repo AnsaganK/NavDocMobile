@@ -24,6 +24,7 @@ class NoteDetail {
   final Map<String, dynamic> user;
   final List<dynamic> users;
   final List<dynamic> files;
+  final Map<String, dynamic> buh;
 
   NoteDetail(
     this.id,
@@ -39,6 +40,7 @@ class NoteDetail {
     this.user,
     this.users,
     this.files,
+    this.buh,
   );
   factory NoteDetail.fromJson(Map<String, dynamic> json) =>
       _$NoteDetailFromJson(json);
