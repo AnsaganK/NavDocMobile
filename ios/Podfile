@@ -42,5 +42,6 @@ end
 
 
 # add the Firebase pod for Google Analytics
+#pod 'Firebase/Analytics'
 # or pod ‘Firebase/AnalyticsWithoutAdIdSupport’
 # for Analytics without IDFA collection capability
