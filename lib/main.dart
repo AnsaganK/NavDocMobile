@@ -50,7 +50,7 @@ Future<void> main() async {
   /// default FCM channel to enable heads up notifications.
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
+      AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
 
   /// Update the iOS foreground notification presentation options to allow
@@ -84,8 +84,8 @@ class MyApp extends StatelessWidget {
             var data = settings.arguments;
             return MaterialPageRoute(
                 builder: (context) => NoteDetailPage(
-                      id: data,
-                    ));
+                  id: data,
+                ));
         }
       },
       routes: <String, WidgetBuilder>{
@@ -246,7 +246,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   _passwordController.text, data_token);
                               if (user != null) {
                                 SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
+                                await SharedPreferences.getInstance();
                                 await prefs.setInt('user_id', user["user_id"]);
                                 Navigator.pushNamed(context, '/notes_page');
                               } else {
@@ -299,21 +299,21 @@ class ScaleTransition1 extends PageRouteBuilder {
   final Widget page;
   ScaleTransition1(this.page)
       : super(
-          pageBuilder: (context, animation, anotherAnimation) => page,
-          transitionDuration: Duration(milliseconds: 700),
-          reverseTransitionDuration: Duration(milliseconds: 200),
-          transitionsBuilder: (context, animation, anotherAnimation, child) {
-            animation = CurvedAnimation(
-                curve: Curves.fastLinearToSlowEaseIn,
-                parent: animation,
-                reverseCurve: Curves.fastOutSlowIn);
-            return ScaleTransition(
-              alignment: Alignment.bottomRight,
-              scale: animation,
-              child: child,
-            );
-          },
-        );
+    pageBuilder: (context, animation, anotherAnimation) => page,
+    transitionDuration: Duration(milliseconds: 700),
+    reverseTransitionDuration: Duration(milliseconds: 200),
+    transitionsBuilder: (context, animation, anotherAnimation, child) {
+      animation = CurvedAnimation(
+          curve: Curves.fastLinearToSlowEaseIn,
+          parent: animation,
+          reverseCurve: Curves.fastOutSlowIn);
+      return ScaleTransition(
+        alignment: Alignment.bottomRight,
+        scale: animation,
+        child: child,
+      );
+    },
+  );
 }
 
 Future login(String username, String password, String data_token) async {

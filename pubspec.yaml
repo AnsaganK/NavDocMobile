@@ -34,7 +34,6 @@ dependencies:
   #advance_pdf_viewer: ^2.0.0
   shared_preferences: ^2.0.5
   url_launcher: ^6.0.0
-  webview_flutter: ^2.0.8
   flutter_launcher_icons: ^0.9.0
   syncfusion_flutter_pdfviewer: ^19.1.67-beta
   carousel_slider: ^3.0.0
