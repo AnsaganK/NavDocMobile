@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nd/constants.dart';
 import 'package:nd/models/note_detail.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:nd/pages/FilePDF.dart';
 import 'package:nd/pages/NotesListPage.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -31,7 +32,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
   String note_title;
   List<dynamic> note_files;
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-  new GlobalKey<RefreshIndicatorState>();
+      new GlobalKey<RefreshIndicatorState>();
   Future<NoteDetail> note;
   bool _isLoading = true;
   bool preloader = false;
@@ -112,135 +113,135 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
           actions: [
             widget.isMy == 0 && widget.note_for_signing
                 ? IconButton(
-                icon: SvgPicture.asset("assets/img/checked.svg"),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) => Dialog(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40)),
-                      elevation: 20,
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20)),
-                        alignment: Alignment.center,
-                        width: 300,
-                        height: 300,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Text(
-                                "Подтвердите действие",
-                                style: TextStyle(
-                                    fontSize: 19, color: Colors.grey),
-                              ),
-                              Divider(),
-                              Text(
-                                "СЗ №${note_number}",
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.black54),
-                              ),
-                              Text(
-                                "${note_title}",
-                                style: TextStyle(
-                                    fontSize: 14, color: Colors.black38),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              status_name[_currentPage],
-                              SizedBox(
-                                height: 10,
-                              ),
-                              SizedBox(
-                                height: 60,
-                                child: textController.text != ""
-                                    ? Text(
-                                  textController.text,
-                                  style: TextStyle(),
-                                  maxLines: 4,
-                                  overflow: TextOverflow.ellipsis,
-                                )
-                                    : Text(
-                                  "Без комментариев",
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                    icon: SvgPicture.asset("assets/img/checked.svg"),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => Dialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40)),
+                          elevation: 20,
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20)),
+                            alignment: Alignment.center,
+                            width: 300,
+                            height: 300,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
                                 children: [
-                                  RaisedButton(
-                                    color: baseColor,
-                                    onPressed: () async {
-                                      var status;
-                                      var post = postEditStatus(
-                                          widget.id,
-                                          textController.text,
-                                          status_api[_currentPage])
-                                          .then((value) {
-                                        status = value["status"];
-                                        if (status == 'success') {
-                                          Navigator.pop(context);
-                                          Navigator.pop(context);
-                                          Navigator.pop(context);
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  NotesNewPage(
+                                  Text(
+                                    "Подтвердите действие",
+                                    style: TextStyle(
+                                        fontSize: 19, color: Colors.grey),
+                                  ),
+                                  Divider(),
+                                  Text(
+                                    "СЗ №${note_number}",
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.black54),
+                                  ),
+                                  Text(
+                                    "${note_title}",
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.black38),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  status_name[_currentPage],
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  SizedBox(
+                                    height: 60,
+                                    child: textController.text != ""
+                                        ? Text(
+                                            textController.text,
+                                            style: TextStyle(),
+                                            maxLines: 4,
+                                            overflow: TextOverflow.ellipsis,
+                                          )
+                                        : Text(
+                                            "Без комментариев",
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                            ),
+                                            maxLines: 3,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      RaisedButton(
+                                        color: baseColor,
+                                        onPressed: () async {
+                                          var status;
+                                          var post = postEditStatus(
+                                                  widget.id,
+                                                  textController.text,
+                                                  status_api[_currentPage])
+                                              .then((value) {
+                                            status = value["status"];
+                                            if (status == 'success') {
+                                              Navigator.pop(context);
+                                              Navigator.pop(context);
+                                              Navigator.pop(context);
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      NotesNewPage(
                                                     days: 7,
                                                   ),
-                                            ),
-                                          );
-                                        } else {
-                                          Navigator.pop(context);
-                                          showDialog(
-                                              context: context,
-                                              builder:
-                                                  (BuildContext context) =>
-                                                  Dialog(
-                                                    child: Padding(
-                                                      padding:
-                                                      const EdgeInsets
-                                                          .all(
-                                                          28.0),
-                                                      child: Center(
-                                                        child: Text(
-                                                          "Не получилось изенить статус",
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .grey),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ));
-                                        }
-                                      });
-                                    },
-                                    child: Text(
-                                      "Подтвердить",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
+                                                ),
+                                              );
+                                            } else {
+                                              Navigator.pop(context);
+                                              showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) =>
+                                                          Dialog(
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .all(
+                                                                      28.0),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  "Не получилось изенить статус",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .grey),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ));
+                                            }
+                                          });
+                                        },
+                                        child: Text(
+                                          "Подтвердить",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
-                              )
-                            ],
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  );
-                })
+                      );
+                    })
                 : Center()
           ],
         ),
@@ -306,7 +307,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
                                       padding: EdgeInsets.all(28),
@@ -315,14 +316,14 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                           boxShadow: [
                                             BoxShadow(
                                               color:
-                                              Color.fromRGBO(0, 0, 0, .25),
+                                                  Color.fromRGBO(0, 0, 0, .25),
                                               offset: Offset(0, 1),
                                               blurRadius: 3,
                                               spreadRadius: 0,
                                             )
                                           ],
                                           borderRadius:
-                                          BorderRadius.circular(10)),
+                                              BorderRadius.circular(10)),
                                       child: Column(
                                         children: [
                                           Padding(
@@ -336,7 +337,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                           ),
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 "Создал",
@@ -352,7 +353,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                           SizedBox(height: 5),
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 "Название",
@@ -367,7 +368,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                           SizedBox(height: 5),
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 "Дата",
@@ -382,7 +383,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                           SizedBox(height: 5),
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 "Дата создания",
@@ -398,7 +399,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                           SizedBox(height: 5),
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 "Текст",
@@ -420,7 +421,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                           SizedBox(height: 5),
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 "Итого",
@@ -442,7 +443,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                           SizedBox(height: 5),
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 "Бухгалтер",
@@ -453,20 +454,20 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                                 width: 200,
                                                 child: snapshot.data.buh != null
                                                     ? Text(
-                                                  "${snapshot.data.buh["first_name"]} ${snapshot.data.buh["last_name"]}\n(подписано)",
-                                                  textAlign:
-                                                  TextAlign.right,
-                                                  style: TextStyle(
-                                                      color:
-                                                      successColor),
-                                                )
+                                                        "${snapshot.data.buh["first_name"]} ${snapshot.data.buh["last_name"]}\n(подписано)",
+                                                        textAlign:
+                                                            TextAlign.right,
+                                                        style: TextStyle(
+                                                            color:
+                                                                successColor),
+                                                      )
                                                     : Text(
-                                                  "В ожидании",
-                                                  textAlign:
-                                                  TextAlign.right,
-                                                  style: TextStyle(
-                                                      color: Colors.grey),
-                                                ),
+                                                        "В ожидании",
+                                                        textAlign:
+                                                            TextAlign.right,
+                                                        style: TextStyle(
+                                                            color: Colors.grey),
+                                                      ),
                                               ),
                                             ],
                                           ),
@@ -475,7 +476,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                           SizedBox(height: 5),
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 "Файлы",
@@ -486,107 +487,115 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                                 width: 150,
                                                 child: note_files.length != 0
                                                     ? FlatButton(
-                                                    child: Text(
-                                                      "Показать файлы",
-                                                      style: TextStyle(
-                                                          color: baseColor),
-                                                    ),
-                                                    onPressed: () async {
-                                                      List<Widget>
-                                                      note_files_src =
-                                                      [];
-                                                      int zero = 0;
-                                                      note_files.forEach(
+                                                        child: Text(
+                                                          "Показать файлы",
+                                                          style: TextStyle(
+                                                              color: baseColor),
+                                                        ),
+                                                        onPressed: () async {
+                                                          List<Widget>
+                                                              note_files_src =
+                                                              [];
+                                                          int zero = 0;
+                                                          note_files.forEach(
                                                               (element) {
                                                             String
-                                                            element_item =
-                                                            element["file"]
-                                                                .toString();
+                                                                element_item =
+                                                                element["file"]
+                                                                    .toString();
                                                             String
-                                                            element_type =
-                                                            element_item.substring(
-                                                                element_item
-                                                                    .length -
-                                                                    3,
-                                                                element_item
-                                                                    .length);
+                                                                element_type =
+                                                                element_item.substring(
+                                                                    element_item
+                                                                            .length -
+                                                                        3,
+                                                                    element_item
+                                                                        .length);
                                                             note_files_src.add(
                                                                 element_type ==
-                                                                    'png' ||
-                                                                    element_type ==
-                                                                        'jpg'
+                                                                            'png' ||
+                                                                        element_type ==
+                                                                            'jpg'
                                                                     ? Column(
-                                                                  children: [
-                                                                    Container(
-                                                                      width:
-                                                                      200,
-                                                                      height:
-                                                                      200,
-                                                                      child:
-                                                                      Card(
-                                                                        elevation: 5,
-                                                                        child: Image.network(
-                                                                          base_url + element["file"],
-                                                                          loadingBuilder: (context, child, loadingProgress) {
-                                                                            if (loadingProgress == null) return child;
+                                                                        children: [
+                                                                          Container(
+                                                                            width:
+                                                                                200,
+                                                                            height:
+                                                                                200,
+                                                                            child:
+                                                                                Card(
+                                                                              elevation: 5,
+                                                                              child: Image.network(
+                                                                                base_url + element["file"],
+                                                                                loadingBuilder: (context, child, loadingProgress) {
+                                                                                  if (loadingProgress == null) return child;
 
-                                                                            return Container(
+                                                                                  return Container(
+                                                                                    width: 200,
+                                                                                    height: 200,
+                                                                                    decoration: BoxDecoration(color: Colors.white),
+                                                                                    child: Center(
+                                                                                      child: SpinKitDualRing(
+                                                                                        color: secondColor,
+                                                                                      ),
+                                                                                    ),
+                                                                                  );
+                                                                                  // You can use LinearProgressIndicator or CircularProgressIndicator instead
+                                                                                },
+                                                                                errorBuilder: (context, error, stackTrace) => Text('Some errors occurred!'),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          Text(
+                                                                              "Файл ${++zero}")
+                                                                        ],
+                                                                      )
+                                                                    : Column(
+                                                                        children: [
+                                                                          GestureDetector(
+                                                                            onTap:
+                                                                                () {
+                                                                              Navigator.push(
+                                                                                  context,
+                                                                                  MaterialPageRoute(
+                                                                                      builder: (context) => FilePDF(
+                                                                                            url: base_url + element_item,
+                                                                                          )));
+                                                                            },
+                                                                            //      () async {
+                                                                            //    if (await canLaunch(base_url + element_item))
+                                                                            //      launch(base_url + element_item);
+                                                                            //    else
+                                                                            //      null;
+                                                                            //  },
+                                                                            child:
+                                                                                Container(
                                                                               width: 200,
                                                                               height: 200,
-                                                                              decoration: BoxDecoration(color: Colors.white),
-                                                                              child: Center(
-                                                                                child: SpinKitDualRing(
-                                                                                  color: secondColor,
-                                                                                ),
+                                                                              child: Card(
+                                                                                color: baseColor,
+                                                                                child: Center(
+                                                                                    child: Text(
+                                                                                  "Открыть файл",
+                                                                                  style: TextStyle(color: Colors.white),
+                                                                                )),
                                                                               ),
-                                                                            );
-                                                                            // You can use LinearProgressIndicator or CircularProgressIndicator instead
-                                                                          },
-                                                                          errorBuilder: (context, error, stackTrace) => Text('Some errors occurred!'),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Text(
-                                                                        "Файл ${++zero}")
-                                                                  ],
-                                                                )
-                                                                    : Column(
-                                                                  children: [
-                                                                    GestureDetector(
-                                                                      onTap:
-                                                                          () async {
-                                                                        if (await canLaunch(base_url + element_item))
-                                                                          launch(base_url + element_item);
-                                                                        else
-                                                                          null;
-                                                                      },
-                                                                      child:
-                                                                      Container(
-                                                                        width: 200,
-                                                                        height: 200,
-                                                                        child: Card(
-                                                                          color: baseColor,
-                                                                          child: Center(
-                                                                              child: Text(
-                                                                                "Скачать файл",
-                                                                                style: TextStyle(color: Colors.white),
-                                                                              )),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Text(
-                                                                        "Файл ${++zero}")
-                                                                  ],
-                                                                ));
+                                                                            ),
+                                                                          ),
+                                                                          Text(
+                                                                              "Файл ${++zero}")
+                                                                        ],
+                                                                      ));
                                                           });
-                                                      showModalBottomSheet(
-                                                          context: context,
-                                                          builder:
-                                                              (context) {
-                                                            return ComplicatedImage(
-                                                                note_files_src);
-                                                          });
-                                                    })
+                                                          showModalBottomSheet(
+                                                              context: context,
+                                                              builder:
+                                                                  (context) {
+                                                                return ComplicatedImage(
+                                                                    note_files_src);
+                                                              });
+                                                        })
                                                     : null,
                                               ), /*return GestureDetector(
                                                         onTap: () async {},
@@ -607,93 +616,93 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                     ),
                                     widget.isMy == 0
                                         ? widget.note_for_signing
-                                        ? Column(
-                                      children: [
-                                        Container(
-                                            margin:
-                                            const EdgeInsets.only(
-                                                bottom: 20.0),
-                                            child:
-                                            null //status_name[_currentPage],
-                                        ),
-                                        TextField(
-                                          controller: textController,
-                                          decoration: InputDecoration(
-                                            fillColor: Colors.white,
-                                            labelText: "Комментарии",
-                                            focusedBorder:
-                                            OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: secondColor,
-                                                  width: 1.0),
-                                            ),
-                                            enabledBorder:
-                                            OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: baseColor,
-                                                  width: 1.0),
-                                            ),
-                                          ),
-                                          minLines: 2,
-                                          maxLines: 10,
-                                        )
-                                      ],
-                                    )
-                                        : Text("")
+                                            ? Column(
+                                                children: [
+                                                  Container(
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              bottom: 20.0),
+                                                      child:
+                                                          null //status_name[_currentPage],
+                                                      ),
+                                                  TextField(
+                                                    controller: textController,
+                                                    decoration: InputDecoration(
+                                                      fillColor: Colors.white,
+                                                      labelText: "Комментарии",
+                                                      focusedBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: secondColor,
+                                                            width: 1.0),
+                                                      ),
+                                                      enabledBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: baseColor,
+                                                            width: 1.0),
+                                                      ),
+                                                    ),
+                                                    minLines: 2,
+                                                    maxLines: 10,
+                                                  )
+                                                ],
+                                              )
+                                            : Text("")
                                         : Column(
-                                      children: List.generate(
-                                          snapshot.data.users.length,
-                                              (index) {
-                                            return Card(
-                                              elevation: 3,
-                                              child: ListTile(
-                                                leading: snapshot.data
-                                                    .users[index]
-                                                ['status'] ==
-                                                    'success'
-                                                    ? Icon(
-                                                  Icons.check,
-                                                  color: successColor,
-                                                )
-                                                    : snapshot.data.users[index]
-                                                ['status'] ==
-                                                    'edit'
-                                                    ? Icon(
-                                                  Icons
-                                                      .warning_amber_outlined,
-                                                  color: editColor,
-                                                )
-                                                    : snapshot.data.users[
-                                                index]
-                                                [
-                                                'status'] ==
-                                                    'error'
-                                                    ? Icon(
-                                                  Icons.close,
-                                                  color:
-                                                  errorColor,
-                                                )
-                                                    : snapshot.data.users[
-                                                index]
-                                                ['status'] ==
-                                                    null
-                                                    ? Icon(
-                                                  Icons
-                                                      .timer,
-                                                  color: Colors
-                                                      .grey,
-                                                )
-                                                    : null,
-                                                title: Text(
-                                                    "${snapshot.data.users[index]['user']['first_name']} ${snapshot.data.users[index]['user']['last_name']}"
-                                                        "\n${snapshot.data.users[index]['date_create'] != null && snapshot.data.users[index]['status'] != null ? snapshot.data.users[index]['date_create'].toString().substring(0, 10) + '    ' + snapshot.data.users[index]['date_create'].toString().substring(11, 19) : ''}"),
-                                                //Text(
-                                                subtitle: Text(
-                                                    "${snapshot.data.users[index]['status'] == null ? '' : '\n' + snapshot.data.users[index]['comment']}"),
-                                              ),
-                                            );
-                                          }),
-                                    ),
+                                            children: List.generate(
+                                                snapshot.data.users.length,
+                                                (index) {
+                                              return Card(
+                                                elevation: 3,
+                                                child: ListTile(
+                                                  leading: snapshot.data
+                                                                  .users[index]
+                                                              ['status'] ==
+                                                          'success'
+                                                      ? Icon(
+                                                          Icons.check,
+                                                          color: successColor,
+                                                        )
+                                                      : snapshot.data.users[index]
+                                                                  ['status'] ==
+                                                              'edit'
+                                                          ? Icon(
+                                                              Icons
+                                                                  .warning_amber_outlined,
+                                                              color: editColor,
+                                                            )
+                                                          : snapshot.data.users[
+                                                                          index]
+                                                                      [
+                                                                      'status'] ==
+                                                                  'error'
+                                                              ? Icon(
+                                                                  Icons.close,
+                                                                  color:
+                                                                      errorColor,
+                                                                )
+                                                              : snapshot.data.users[
+                                                                              index]
+                                                                          ['status'] ==
+                                                                      null
+                                                                  ? Icon(
+                                                                      Icons
+                                                                          .timer,
+                                                                      color: Colors
+                                                                          .grey,
+                                                                    )
+                                                                  : null,
+                                                  title: Text(
+                                                      "${snapshot.data.users[index]['user']['first_name']} ${snapshot.data.users[index]['user']['last_name']}"
+                                                      "\n${snapshot.data.users[index]['date_create'] != null && snapshot.data.users[index]['status'] != null ? snapshot.data.users[index]['date_create'].toString().substring(0, 10) + '    ' + snapshot.data.users[index]['date_create'].toString().substring(11, 19) : ''}"),
+                                                  //Text(
+                                                  subtitle: Text(
+                                                      "${snapshot.data.users[index]['status'] == null ? '' : '\n' + snapshot.data.users[index]['comment']}"),
+                                                ),
+                                              );
+                                            }),
+                                          ),
                                   ],
                                 ),
                               );
@@ -718,36 +727,36 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
         ),
         bottomNavigationBar: widget.isMy == 0 && widget.note_for_signing
             ? BottomNavyBar(
-          selectedIndex: _currentPage,
-          showElevation: true,
-          containerHeight: 80,
-          itemCornerRadius: 8,
-          curve: Curves.easeIn,
-          mainAxisAlignment: MainAxisAlignment.center,
-          onItemSelected: (index) => setState(() {
-            _currentPage = index;
-          }),
-          items: [
-            BottomNavyBarItem(
-                inactiveColor: Colors.grey,
-                icon: Icon(Icons.check),
-                textAlign: TextAlign.center,
-                title: Text("Подписать"),
-                activeColor: successColor),
-            BottomNavyBarItem(
-                inactiveColor: Colors.grey,
-                icon: Icon(Icons.warning_amber_outlined),
-                title: Text("Возврат"),
-                textAlign: TextAlign.center,
-                activeColor: editColor),
-            BottomNavyBarItem(
-                inactiveColor: Colors.grey,
-                icon: Icon(Icons.close),
-                title: Text("Отказать"),
-                textAlign: TextAlign.center,
-                activeColor: errorColor),
-          ],
-        )
+                selectedIndex: _currentPage,
+                showElevation: true,
+                containerHeight: 80,
+                itemCornerRadius: 8,
+                curve: Curves.easeIn,
+                mainAxisAlignment: MainAxisAlignment.center,
+                onItemSelected: (index) => setState(() {
+                  _currentPage = index;
+                }),
+                items: [
+                  BottomNavyBarItem(
+                      inactiveColor: Colors.grey,
+                      icon: Icon(Icons.check),
+                      textAlign: TextAlign.center,
+                      title: Text("Подписать"),
+                      activeColor: successColor),
+                  BottomNavyBarItem(
+                      inactiveColor: Colors.grey,
+                      icon: Icon(Icons.warning_amber_outlined),
+                      title: Text("Возврат"),
+                      textAlign: TextAlign.center,
+                      activeColor: editColor),
+                  BottomNavyBarItem(
+                      inactiveColor: Colors.grey,
+                      icon: Icon(Icons.close),
+                      title: Text("Отказать"),
+                      textAlign: TextAlign.center,
+                      activeColor: errorColor),
+                ],
+              )
             : null,
       ),
     );
